@@ -5,30 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My First Webpage</title>
   <style>
-  .center-text
-    {
-      text-align:center;
+    .center-text {
+      text-align: center;
     }
-    .big-font
-    {
-      font-size:25px;
+    .big-font {
+      font-size: 25px;
     }
-    body
-    {
+    body {
       background-color: red;
     }
-    .white-text
-    {
-      color:white;
+    .white-text {
+      color: white;
+    }
+    /* Style for the message box */
+    #popup-message {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #333;
+      color: #fff;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.5em;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
   </style>
 </head>
-  <body>
-  <h1 class="center-text white-text">Welcome to hell</h1>
-  <p class="big-font center-text white-text">please leave.</p>
-  
-  <img src="welcome-to-hell-tales-from-the-hood-2.gif" alt="welcome to hell" width="500" height="auto">
-  <img src="banana-fruit.gif" alt="welcome to hell" width="500" height="auto">
+<body>
+  <div id="content">
+    <h1 class="center-text white-text">Welcome to hell</h1>
+    <p class="big-font center-text white-text">please leave.</p>
+    <img src="welcome-to-hell-tales-from-the-hood-2.gif" alt="welcome to hell" width="500" height="auto">
+    <img src="banana-fruit.gif" alt="welcome to hell" width="500" height="auto">
+  </div>
 
+  <!-- Timed pop-up message -->
+  <div id="popup-message">
+    What are you still doing here? ;-;
+  </div>
+
+  <script>
+    // Function to replace the entire content with the message after 5 seconds
+    setTimeout(function() {
+      document.getElementById("content").style.display = "none"; // Hide main content
+      document.getElementById("popup-message").style.display = "block"; // Show message
+    }, 5000); // 5000 milliseconds = 5 seconds
+  </script>
 </body>
 </html>

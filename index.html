@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My First Webpage</title>
+  <title>Welcome to Hell</title>
   <style>
     .center-text {
       text-align: center;
@@ -12,7 +12,9 @@
       font-size: 25px;
     }
     body {
-      background-color: red;
+      background-color: black;
+      color: green;
+      font-family: monospace;
     }
     .white-text {
       color: white;
@@ -25,34 +27,106 @@
       left: 50%;
       transform: translate(-50%, -50%);
       padding: 20px;
-      background-color: #333;
+      background-color: black;
       color: #fff;
       border-radius: 8px;
       text-align: center;
       font-size: 1.5em;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
+    #content {
+      display: none; /* Hide content initially */
+    }
+    #startup-sequence {
+      color: green;
+      font-size: 1.2em;
+      padding: 20px;
+      text-align: center;
+      font-family: monospace;
+    }
+    #visitor-counter {
+      color: white;
+      font-size: 20px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Startup sequence text -->
+  <div id="startup-sequence">
+    <p>Initializing...</p>
+    <p>Loading data...</p>
+    <p>Connecting to hell server...</p>
+    <p>Preparing experience...</p>
+    <p>Welcome to hell</p>
+  </div>
+
+  <!-- Main content -->
   <div id="content">
     <h1 class="center-text white-text">Welcome to hell</h1>
-    <p class="big-font center-text white-text">please leave.</p>
+    <p class="big-font center-text white-text">Please leave.</p>
     <img src="welcome-to-hell-tales-from-the-hood-2.gif" alt="welcome to hell" width="500" height="auto">
     <img src="banana-fruit.gif" alt="welcome to hell" width="500" height="auto">
+
+    <!-- Visitor counter display -->
+    <div id="visitor-counter" class="center-text"></div>
   </div>
 
   <!-- Timed pop-up message -->
   <div id="popup-message">
-    What are you still doing here? ;-;
+    Why are you still here? ;-;
   </div>
 
   <script>
-    // Function to replace the entire content with the message after 5 seconds
-    setTimeout(function() {
-      document.getElementById("content").style.display = "none"; // Hide main content
-      document.getElementById("popup-message").style.display = "block"; // Show message
-    }, 30000); // 30000 milliseconds = 30 seconds
+    // Initialize visit counter in localStorage (or initialize to 0 if not set)
+    if (!localStorage.getItem("visitCount")) {
+      localStorage.setItem("visitCount", 0);
+    }
+
+    // Increment visit counter
+    let visitCount = parseInt(localStorage.getItem("visitCount"));
+    visitCount += 1;
+    localStorage.setItem("visitCount", visitCount);
+
+    // Display the visit count on the page
+    function displayVisitorCount() {
+      const counterElement = document.getElementById("visitor-counter");
+      counterElement.innerHTML = `This page has been visited ${visitCount} times in this session.`;
+    }
+
+    // Display startup sequence messages one by one
+    const startupSequence = document.getElementById("startup-sequence");
+    const messages = startupSequence.getElementsByTagName("p");
+    let index = 0;
+
+    function showNextMessage() {
+      if (index < messages.length) {
+        messages[index].style.display = "block";
+        index++;
+        setTimeout(showNextMessage, 1000); // Show each message with a delay
+      } else {
+        // After the sequence is done, show main content
+        startupSequence.style.display = "none";
+        document.getElementById("content").style.display = "block";
+
+        // Display visit count after main content is shown
+        displayVisitorCount();
+
+        // Start the timer for the pop-up message
+        setTimeout(function() {
+          document.getElementById("content").style.display = "none";
+          document.getElementById("popup-message").style.display = "block";
+        }, 10000); // Show popup message after 10 seconds
+      }
+    }
+
+    // Initialize the startup sequence
+    for (let i = 0; i < messages.length; i++) {
+      messages[i].style.display = "none"; // Hide all messages initially
+    }
+    showNextMessage();
   </script>
+
 </body>
 </html>

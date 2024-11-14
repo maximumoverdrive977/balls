@@ -44,6 +44,11 @@
       text-align: center;
       font-family: monospace;
     }
+    #visitor-counter {
+      color: white;
+      font-size: 20px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -63,6 +68,9 @@
     <p class="big-font center-text white-text">Please leave.</p>
     <img src="welcome-to-hell-tales-from-the-hood-2.gif" alt="welcome to hell" width="500" height="auto">
     <img src="banana-fruit.gif" alt="welcome to hell" width="500" height="auto">
+
+    <!-- Visitor counter display -->
+    <div id="visitor-counter" class="center-text"></div>
   </div>
 
   <!-- Timed pop-up message -->
@@ -71,6 +79,22 @@
   </div>
 
   <script>
+    // Initialize visit counter in localStorage (or initialize to 0 if not set)
+    if (!localStorage.getItem("visitCount")) {
+      localStorage.setItem("visitCount", 0);
+    }
+
+    // Increment visit counter
+    let visitCount = parseInt(localStorage.getItem("visitCount"));
+    visitCount += 1;
+    localStorage.setItem("visitCount", visitCount);
+
+    // Display the visit count on the page
+    function displayVisitorCount() {
+      const counterElement = document.getElementById("visitor-counter");
+      counterElement.innerHTML = `This page has been visited ${visitCount} times in this session.`;
+    }
+
     // Display startup sequence messages one by one
     const startupSequence = document.getElementById("startup-sequence");
     const messages = startupSequence.getElementsByTagName("p");
@@ -85,6 +109,9 @@
         // After the sequence is done, show main content
         startupSequence.style.display = "none";
         document.getElementById("content").style.display = "block";
+
+        // Display visit count after main content is shown
+        displayVisitorCount();
 
         // Start the timer for the pop-up message
         setTimeout(function() {

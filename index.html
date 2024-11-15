@@ -154,11 +154,6 @@
         // Display visit count after main content is shown
         displayVisitorCount();
 
-        // Start the timer for the admin button
-        setTimeout(() => {
-          document.getElementById("admin-button").style.display = "block";
-        }, 15000); // Show admin button after 15 seconds
-
         // Start the timer for the pop-up message
         setTimeout(() => {
           document.getElementById("content").style.display = "none";
@@ -172,6 +167,12 @@
       messages[i].style.display = "none"; // Hide all messages initially
     }
     showNextMessage();
+
+    // Show pop-up message after 10 seconds
+    setTimeout(() => {
+      // After pop-up shows, reveal the admin login button
+      document.getElementById("admin-button").style.display = "block";
+    }, 10000); // After 10 seconds, show the button
 
     // Show admin login form when the button is clicked
     function showAdminLogin() {

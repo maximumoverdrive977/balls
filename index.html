@@ -49,6 +49,17 @@
       font-size: 20px;
       margin-top: 20px;
     }
+    #admin-login {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+    #admin-section {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -71,6 +82,26 @@
 
     <!-- Visitor counter display -->
     <div id="visitor-counter" class="center-text"></div>
+
+    <!-- Admin login form -->
+    <div id="admin-login">
+      <h2>Admin Login</h2>
+      <form id="login-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+        <br>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <!-- Admin section -->
+    <div id="admin-section">
+      <h3>Welcome, Admin!</h3>
+      <p>Total Visits: <span id="total-visits"></span></p>
+    </div>
   </div>
 
   <!-- Timed pop-up message -->
@@ -113,6 +144,9 @@
         // Display visit count after main content is shown
         displayVisitorCount();
 
+        // Show admin login form
+        document.getElementById("admin-login").style.display = "block";
+
         // Start the timer for the pop-up message
         setTimeout(function() {
           document.getElementById("content").style.display = "none";
@@ -126,6 +160,21 @@
       messages[i].style.display = "none"; // Hide all messages initially
     }
     showNextMessage();
+
+    // Admin login functionality
+    const adminCredentials = { username: "admin", password: "Bmwm3e46" };
+    document.getElementById("login-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if (username === adminCredentials.username && password === adminCredentials.password) {
+        document.getElementById("admin-section").style.display = "block";
+        document.getElementById("total-visits").textContent = visitCount;
+      } else {
+        alert("Invalid credentials. Please try again.");
+      }
+    });
   </script>
 
 </body>

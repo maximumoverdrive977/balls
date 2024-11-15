@@ -49,6 +49,11 @@
       font-size: 20px;
       margin-top: 20px;
     }
+    #admin-button {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
     #admin-login {
       display: none;
       text-align: center;
@@ -82,6 +87,11 @@
 
     <!-- Visitor counter display -->
     <div id="visitor-counter" class="center-text"></div>
+
+    <!-- Admin login button -->
+    <div id="admin-button" class="center-text">
+      <button onclick="showAdminLogin()">Admin Login</button>
+    </div>
 
     <!-- Admin login form -->
     <div id="admin-login">
@@ -144,11 +154,13 @@
         // Display visit count after main content is shown
         displayVisitorCount();
 
-        // Show admin login form
-        document.getElementById("admin-login").style.display = "block";
+        // Start the timer for the admin button
+        setTimeout(() => {
+          document.getElementById("admin-button").style.display = "block";
+        }, 15000); // Show admin button after 15 seconds
 
         // Start the timer for the pop-up message
-        setTimeout(function() {
+        setTimeout(() => {
           document.getElementById("content").style.display = "none";
           document.getElementById("popup-message").style.display = "block";
         }, 10000); // Show popup message after 10 seconds
@@ -161,8 +173,13 @@
     }
     showNextMessage();
 
+    // Show admin login form when the button is clicked
+    function showAdminLogin() {
+      document.getElementById("admin-login").style.display = "block";
+    }
+
     // Admin login functionality
-    const adminCredentials = { username: "admin", password: "Bmwm3e46" };
+    const adminCredentials = { username: "Admin", password: "Bmwm3e46" };
     document.getElementById("login-form").addEventListener("submit", (event) => {
       event.preventDefault();
       const username = document.getElementById("username").value;

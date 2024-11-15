@@ -92,31 +92,25 @@
     <div id="admin-button" class="center-text">
       <button onclick="showAdminLogin()">Admin Login</button>
     </div>
-
-    <!-- Admin login form -->
-    <div id="admin-login">
-      <h2>Admin Login</h2>
-      <form id="login-form">
-        <label for="username">Username:</label>
-        <input type="text" id="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" required>
-        <br>
-        <button type="submit">Login</button>
-      </form>
-    </div>
-
-    <!-- Admin section -->
-    <div id="admin-section">
-      <h3>Welcome, Admin!</h3>
-      <p>Total Visits: <span id="total-visits"></span></p>
-    </div>
   </div>
 
   <!-- Timed pop-up message -->
   <div id="popup-message">
     Why are you still here? ;-;
+  </div>
+
+  <!-- Admin login form -->
+  <div id="admin-login">
+    <h2>Admin Login</h2>
+    <form id="login-form">
+      <label for="username">Username:</label>
+      <input type="text" id="username" required>
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" required>
+      <br>
+      <button type="submit">Login</button>
+    </form>
   </div>
 
   <script>
@@ -158,12 +152,10 @@
         displayVisitorCount();
 
         // Start the timer for the pop-up message
-        setTimeout(() => {
-          if (!isAdmin) {
-            document.getElementById("content").style.display = "none";
-            document.getElementById("popup-message").style.display = "block";
-          }
-        }, 10000); // Show popup message after 10 seconds (if not logged in as admin)
+        setTimeout(function() {
+          document.getElementById("content").style.display = "none";
+          document.getElementById("popup-message").style.display = "block";
+        }, 10000); // Show popup message after 10 seconds
       }
     }
 
@@ -173,16 +165,18 @@
     }
     showNextMessage();
 
-    // Show pop-up message after 10 seconds (if not logged in as admin)
-    setTimeout(() => {
-      // After 10 seconds, show the admin button if not logged in
-      if (!isAdmin) {
-        document.getElementById("admin-button").style.display = "block";
-      }
-    }, 10000); // After 10 seconds, show the button
+    // Show pop-up message after 10 seconds
+    setTimeout(function() {
+      document.getElementById("admin-button").style.display = "block"; // Show the admin button after 10 seconds
+    }, 10000); // 10 seconds
 
-    // Show admin login form when the button is clicked
+    // Function to display the admin login form and hide other content
     function showAdminLogin() {
+      // Hide all main content
+      document.getElementById("content").style.display = "none";
+      document.getElementById("popup-message").style.display = "none"; // Hide the popup message
+
+      // Show the admin login form
       document.getElementById("admin-login").style.display = "block";
     }
 
@@ -196,11 +190,8 @@
       if (username === adminCredentials.username && password === adminCredentials.password) {
         // Set admin flag to true and hide the pop-up
         isAdmin = true;
-        document.getElementById("admin-section").style.display = "block";
-        document.getElementById("total-visits").textContent = visitCount;
-        document.getElementById("popup-message").style.display = "none"; // Hide the pop-up
-        document.getElementById("admin-button").style.display = "none"; // Hide the login button
-        document.getElementById("admin-login").style.display = "none"; // Hide the login form
+        alert("Logged in as Admin!");
+        // Optionally, you could display the admin dashboard here.
       } else {
         alert("Invalid credentials. Please try again.");
       }

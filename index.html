@@ -49,6 +49,16 @@
       font-size: 20px;
       margin-top: 20px;
     }
+    /* Style for the GIF container */
+    #gif-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    #gif-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -66,8 +76,9 @@
   <div id="content">
     <h1 class="center-text white-text">Welcome to hell</h1>
     <p class="big-font center-text white-text">Please leave.</p>
-    <img src="welcome-to-hell-tales-from-the-hood-2.gif" alt="welcome to hell" width="500" height="auto">
-    <img src="banana-fruit.gif" alt="welcome to hell" width="500" height="auto">
+
+    <!-- Random GIF container -->
+    <div id="gif-container"></div>
 
     <!-- Visitor counter display -->
     <div id="visitor-counter" class="center-text"></div>
@@ -79,6 +90,26 @@
   </div>
 
   <script>
+    // Array of local GIFs
+    const gifs = [
+      "welcome-to-hell-tales-from-the-hood-2.gif",
+      "banana-fruit.gif",
+      "funny-cat.gif", // Add more GIFs here
+      "dancing-banana.gif"
+    ];
+
+    // Get the current day
+    const today = new Date().getDate();
+
+    // Select a GIF based on the day
+    const gifOfTheDay = gifs[today % gifs.length];
+
+    // Display the selected GIF
+    function displayRandomGif() {
+      const gifContainer = document.getElementById("gif-container");
+      gifContainer.innerHTML = `<img src="${gifOfTheDay}" alt="Random Funny GIF">`;
+    }
+
     // Initialize visit counter in localStorage (or initialize to 0 if not set)
     if (!localStorage.getItem("visitCount")) {
       localStorage.setItem("visitCount", 0);
@@ -112,6 +143,9 @@
 
         // Display visit count after main content is shown
         displayVisitorCount();
+
+        // Display the random GIF
+        displayRandomGif();
 
         // Start the timer for the pop-up message
         setTimeout(function() {
